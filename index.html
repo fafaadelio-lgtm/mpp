@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - Beranda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            color: #262626;
+        }
+
+        /* ============ HEADER ============ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 0 16px;
+            height: 54px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .header-search {
+            flex: 1;
+            max-width: 268px;
+            margin: 0 16px;
+        }
+
+        .header-search input {
+            width: 100%;
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .header-search input::placeholder {
+            color: #999;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #262626;
+            transition: opacity 0.2s;
+        }
+
+        .icon-btn:hover {
+            opacity: 0.6;
+        }
+
+        /* ============ MAIN CONTAINER ============ */
+        .container {
+            display: flex;
+            margin-top: 54px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============ SIDEBAR ============ */
+        .sidebar {
+            width: 244px;
+            border-right: 1px solid #dbdbdb;
+            padding: 20px 16px;
+            position: fixed;
+            height: calc(100vh - 54px);
+            overflow-y: auto;
+            background-color: #fff;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #262626;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .theme-toggle {
+            width: 100%;
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 16px;
+            color: #262626;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* ============ MAIN FEED ============ */
+        .main-feed {
+            flex: 1;
+            margin-left: 244px;
+            padding: 16px;
+            max-width: calc(100% - 244px);
+        }
+
+        .feed-container {
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+
+        /* ============ STORIES ============ */
+        .stories {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .stories::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .stories::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .stories::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 2px;
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .story-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border: 2px solid #dbdbdb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .story-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .story-username {
+            font-size: 12px;
+            text-align: center;
+            width: 60px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ============ POST ============ */
+        .post {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .post-user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .post-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-location {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .post-options {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #262626;
+        }
+
+        .post-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background-color: #e0e0e0;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-action-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .post-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #262626;
+            transition: opacity 0.2s;
+        }
+
+        .post-action:hover {
+            opacity: 0.6;
+        }
+
+        .post-action.liked {
+            color: #ed4956;
+        }
+
+        .post-stats {
+            padding: 0 16px;
+            display: flex;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .post-caption {
+            padding: 0 16px 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .post-caption .username {
+            font-weight: 600;
+        }
+
+        .post-caption .hashtag {
+            color: #0095f6;
+        }
+
+        .post-comments-preview {
+            padding: 0 16px;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .post-comments-preview:hover {
+            color: #262626;
+        }
+
+        .post-time {
+            padding: 0 16px 12px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .post-comment-input {
+            padding: 0 16px 12px;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 12px;
+        }
+
+        .post-comment-input input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .post-comment-input button {
+            background: none;
+            border: none;
+            color: #0095f6;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* ============ RIGHT SIDEBAR ============ */
+        .right-sidebar {
+            width: 320px;
+            margin-left: auto;
+            padding: 20px 16px;
+        }
+
+        .user-info {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .user-details h3 {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-details p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .suggestions-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .suggestions-title a {
+            font-size: 12px;
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .suggestion-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+
+        .suggestion-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .suggestion-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        .suggestion-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .suggestion-username {
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .suggestion-status {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .suggestion-follow {
+            color: #0095f6;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            margin-top: 32px;
+            font-size: 11px;
+            color: #999;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: #262626;
+        }
+
+        .footer-copyright {
+            margin-top: 16px;
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* ============ SCROLLBAR ============ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media screen and (max-width: 1100px) {
+            .right-sidebar {
+                display: none;
+            }
+
+            .main-feed {
+                margin-left: 244px;
+                max-width: calc(100% - 244px);
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .sidebar {
+                width: 72px;
+                padding: 8px;
+            }
+
+            .nav-link {
+                justify-content: center;
+                padding: 12px;
+            }
+
+            .nav-text {
+                display: none;
+            }
+
+            .main-feed {
+                margin-left: 72px;
+                max-width: calc(100% - 72px);
+            }
+
+            .header-search {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-top: 1px solid #dbdbdb;
+                padding: 0;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 8px 0;
+                background-color: #fff;
+                z-index: 50;
+            }
+
+            .nav-menu {
+                display: flex;
+                gap: 0;
+                margin: 0;
+                align-items: center;
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .nav-item {
+                margin: 0;
+            }
+
+            .nav-link {
+                padding: 8px;
+                margin: 0;
+            }
+
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .main-feed {
+                margin-left: 0;
+                margin-bottom: 60px;
+                max-width: 100%;
+                padding: 12px;
+            }
+
+            .feed-container {
+                max-width: 100%;
+            }
+
+            .header {
+                height: 50px;
+            }
+
+            .container {
+                margin-top: 50px;
+            }
+
+            .sidebar {
+                height: 60px;
+            }
+
+            .header-logo {
+                font-size: 20px;
+            }
+
+            .post {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                margin-bottom: 8px;
+            }
+
+            .stories {
+                border-radius: 0;
+                margin: 0 -12px 8px;
+                width: calc(100% + 24px);
+                padding: 8px 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .feed-container {
+                margin-bottom: 60px;
+            }
+
+            .header {
+                padding: 0 8px;
+            }
+
+            .header-icons {
+                gap: 8px;
+            }
+
+            .icon-btn {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+        <div class="header-logo">Instagram</div>
+        <div class="header-search">
+            <input type="text" placeholder="🔍 Cari">
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" title="Buat">➕</button>
+            <button class="icon-btn" title="Notifikasi">❤️</button>
+            <button class="icon-btn" title="Direct Message">✉️</button>
+        </div>
+    </header>
+
+    <!-- ============ MAIN CONTAINER ============ -->
+    <div class="container">
+        <!-- ============ SIDEBAR ============ -->
+        <sidebar class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <div class="nav-link active">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">Beranda</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-text">Jelajahi</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <span class="nav-icon">❤️</span>
+                        <span class="nav-text">Disukai</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <span class="nav-icon">✉️</span>
+                        <span class="nav-text">Pesan</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <span class="nav-icon">🔖</span>
+                        <span class="nav-text">Simpan</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-text">Profil</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="sidebar-bottom">
+                <button class="theme-toggle">
+                    <span class="nav-icon">🌙</span>
+                    <span class="nav-text">Mode Gelap</span>
+                </button>
+            </div>
+        </sidebar>
+
+        <ul>
+        <li><a href="beranda.html" class="nav-link active">Beranda</a></li>
+        <li><a href="profile.html" class="nav-link active">Profil</a></li>
+        </ul>
+            
+            
+            
+            <!-- ============ MAIN FEED ============ -->
+        <main class="main-feed">
+            <div class="feed-container">
+                <!-- STORIES -->
+                <div class="stories">
+                    <div class="story">
+                        <div class="story-avatar">A</div>
+                        <div class="story-username">Anda</div>
+                    </div>
+                    <div class="story">
+                        <div class="story-avatar">B</div>
+                        <div class="story-username">Budi</div>
+                    </div>
+                    <div class="story">
+                        <div class="story-avatar">C</div>
+                        <div class="story-username">Cindy</div>
+                    </div>
+                    <div class="story">
+                        <div class="story-avatar">D</div>
+                        <div class="story-username">Dina</div>
+                    </div>
+                    <div class="story">
+                        <div class="story-avatar">E</div>
+                        <div class="story-username">Eka</div>
+                    </div>
+                    <div class="story">
+                        <div class="story-avatar">F</div>
+                        <div class="story-username">Fajar</div>
+                    </div>
+                </div>
+
+                <!-- POST 1 -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="post-avatar">AS</div>
+                            <div class="post-user-info">
+                                <div class="post-username">Asana_Store</div>
+                                <div class="post-location">Jakarta, Indonesia</div>
+                            </div>
+                        </div>
+                        <button class="post-options">⋯</button>
+                    </div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23E1E5E1' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23999' text-anchor='middle' dy='.3em'%3EFoto Post%3C/text%3E%3C/svg%3E" alt="Post" class="post-image">
+                    <div class="post-actions">
+                        <div class="post-action-group">
+                            <button class="post-action">❤️</button>
+                            <button class="post-action">💬</button>
+                            <button class="post-action">✈️</button>
+                        </div>
+                        <button class="post-action">🔖</button>
+                    </div>
+                    <div class="post-stats">
+                        <span>1,234 suka</span>
+                    </div>
+                    <div class="post-caption">
+                        <span class="username">Asana_Store</span> Koleksi terbaru kami sudah tersedia! <span class="hashtag">#fashion</span> <span class="hashtag">#indonesiabisnis</span>
+                    </div>
+                    <div class="post-comments-preview">
+                        Lihat semua 45 komentar
+                    </div>
+                    <div class="post-time">
+                        2 jam yang lalu
+                    </div>
+                    <div class="post-comment-input">
+                        <input type="text" placeholder="Tambahkan komentar...">
+                        <button>Posting</button>
+                    </div>
+                </div>
+
+                <!-- POST 2 -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="post-avatar">TR</div>
+                            <div class="post-user-info">
+                                <div class="post-username">TravelBuddy_ID</div>
+                                <div class="post-location">Bali, Indonesia</div>
+                            </div>
+                        </div>
+                        <button class="post-options">⋯</button>
+                    </div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23D4E4F7' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23999' text-anchor='middle' dy='.3em'%3EFoto Post%3C/text%3E%3C/svg%3E" alt="Post" class="post-image">
+                    <div class="post-actions">
+                        <div class="post-action-group">
+                            <button class="post-action">❤️</button>
+                            <button class="post-action">💬</button>
+                            <button class="post-action">✈️</button>
+                        </div>
+                        <button class="post-action">🔖</button>
+                    </div>
+                    <div class="post-stats">
+                        <span>2,567 suka</span>
+                    </div>
+                    <div class="post-caption">
+                        <span class="username">TravelBuddy_ID</span> Sunset di Pantai Kuta adalah yang terbaik! 🌅 <span class="hashtag">#bali</span> <span class="hashtag">#travel</span>
+                    </div>
+                    <div class="post-comments-preview">
+                        Lihat semua 89 komentar
+                    </div>
+                    <div class="post-time">
+                        4 jam yang lalu
+                    </div>
+                    <div class="post-comment-input">
+                        <input type="text" placeholder="Tambahkan komentar...">
+                        <button>Posting</button>
+                    </div>
+                </div>
+
+                <!-- POST 3 -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="post-avatar">CB</div>
+                            <div class="post-user-info">
+                                <div class="post-username">CoffeeBliss</div>
+                                <div class="post-location">Cafe Bandung</div>
+                            </div>
+                        </div>
+                        <button class="post-options">⋯</button>
+                    </div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect fill='%23F5E6D3' width='600' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23999' text-anchor='middle' dy='.3em'%3EFoto Post%3C/text%3E%3C/svg%3E" alt="Post" class="post-image">
+                    <div class="post-actions">
+                        <div class="post-action-group">
+                            <button class="post-action">❤️</button>
+                            <button class="post-action">💬</button>
+                            <button class="post-action">✈️</button>
+                        </div>
+                        <button class="post-action">🔖</button>
+                    </div>
+                    <div class="post-stats">
+                        <span>892 suka</span>
+                    </div>
+                    <div class="post-caption">
+                        <span class="username">CoffeeBliss</span> Kopi pagi yang sempurna untuk memulai hari ☕ <span class="hashtag">#coffee</span> <span class="hashtag">#bandung</span>
+                    </div>
+                    <div class="post-comments-preview">
+                        Lihat semua 23 komentar
+                    </div>
+                    <div class="post-time">
+                        6 jam yang lalu
+                    </div>
+                    <div class="post-comment-input">
+                        <input type="text" placeholder="Tambahkan komentar...">
+                        <button>Posting</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ============ RIGHT SIDEBAR ============ -->
+        <aside class="right-sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="user-avatar">YA</div>
+                <div class="user-details">
+                    <h3>Your Account</h3>
+                    <p>your_username</p>
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div>
+                <div class="suggestions-title">
+                    Saran Untuk Anda
+                    <a href="#">Lihat Semua</a>
+                </div>
+
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="suggestion-avatar">FK</div>
+                        <div class="suggestion-details">
+                            <div class="suggestion-username">FitnessKing</div>
+                            <div class="suggestion-status">Diikuti oleh 145 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggestion-follow">Ikuti</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="suggestion-avatar">DC</div>
+                        <div class="suggestion-details">
+                            <div class="suggestion-username">DesignCraft</div>
+                            <div class="suggestion-status">Diikuti oleh 523 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggestion-follow">Ikuti</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="suggestion-avatar">FB</div>
+                        <div class="suggestion-details">
+                            <div class="suggestion-username">FoodBlogger</div>
+                            <div class="suggestion-status">Diikuti oleh 892 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggestion-follow">Ikuti</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="suggestion-avatar">MT</div>
+                        <div class="suggestion-details">
+                            <div class="suggestion-username">MusicTales</div>
+                            <div class="suggestion-status">Diikuti oleh 456 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggestion-follow">Ikuti</button>
+                </div>
+
+                <div class="suggestion-item">
+                    <div class="suggestion-user">
+                        <div class="suggestion-avatar">AP</div>
+                        <div class="suggestion-details">
+                            <div class="suggestion-username">ArtPortfolio</div>
+                            <div class="suggestion-status">Diikuti oleh 234 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggestion-follow">Ikuti</button>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <a href="#">Tentang</a>
+                <a href="#">Bantuan</a>
+                <a href="#">Pers</a>
+                <a href="#">API</a>
+                <a href="#">Karir</a>
+                <a href="#">Privasi</a>
+                <a href="#">Syarat</a>
+                <a href="#">Lokasi</a>
+                <a href="#">Bahasa</a>
+            </div>
+            <div class="footer-copyright">
+                © 2026 Instagram by Meta — Insipirasi dari Instagram Official
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
