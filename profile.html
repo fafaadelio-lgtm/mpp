@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Instagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            color: #262626;
+        }
+
+        /* ============ HEADER ============ */
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 54px;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .header-back {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #262626;
+        }
+
+        .header-username {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #262626;
+            transition: opacity 0.2s;
+        }
+
+        .header-btn:hover {
+            opacity: 0.6;
+        }
+
+        /* ============ CONTAINER ============ */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============ PROFILE HEADER ============ */
+        .profile-header {
+            padding: 20px 16px;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .profile-info {
+            margin-bottom: 16px;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .profile-username {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .profile-url {
+            color: #0095f6;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .profile-url:hover {
+            text-decoration: underline;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 8px 16px;
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0077d8;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            color: #262626;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e4e4e4;
+        }
+
+        .btn-icon {
+            width: auto;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            color: #262626;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-icon:hover {
+            background-color: #e4e4e4;
+        }
+
+        /* ============ HIGHLIGHT REEL ============ */
+        .highlight-section {
+            padding: 16px;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .highlight-list {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .highlight-list::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .highlight-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .highlight-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .highlight-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c);
+            border: 2px solid #dbdbdb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            transition: transform 0.2s;
+        }
+
+        .highlight-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .highlight-name {
+            font-size: 12px;
+            text-align: center;
+            width: 70px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ============ NAV TABS ============ */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 12px 0;
+            position: sticky;
+            top: 54px;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-tab:hover {
+            color: #262626;
+        }
+
+        .nav-tab.active {
+            color: #262626;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #262626;
+        }
+
+        /* ============ POSTS GRID ============ */
+        .posts-section {
+            background-color: #fafafa;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background-color: #dbdbdb;
+            padding: 1px;
+        }
+
+        .post-item {
+            aspect-ratio: 1;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: opacity 0.2s;
+        }
+
+        .post-item:hover {
+            opacity: 0.8;
+        }
+
+        .post-item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background-color: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .post-item:hover .post-item-overlay {
+            opacity: 1;
+        }
+
+        .post-item-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-item-icon {
+            font-size: 20px;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            padding: 60px 16px;
+            text-align: center;
+            color: #999;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #262626;
+        }
+
+        .empty-text {
+            font-size: 14px;
+        }
+
+       .sidebar {
+            width: 244px;
+            border-right: 1px solid #dbdbdb;
+            padding: 20px 16px;
+            position: fixed;
+            height: calc(100vh - 54px);
+            overflow-y: auto;
+            background-color: #fff;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #262626;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .theme-toggle {
+            width: 100%;
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 16px;
+            color: #262626;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: #f0f0f0;
+        } 
+
+        /* ============ SCROLLBAR ============ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        /* ============ MODAL ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        .modal-item {
+            padding: 8px 0;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+            border-radius: 4px;
+        }
+
+        .modal-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .modal-item.danger {
+            color: #ed4956;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media screen and (max-width: 900px) {
+            .profile-stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .posts-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            .header {
+                height: 50px;
+                padding: 8px 12px;
+            }
+
+            .header-username {
+                font-size: 14px;
+            }
+
+            .header-btn {
+                font-size: 20px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .profile-header {
+                padding: 16px 12px;
+            }
+
+            .profile-top {
+                gap: 16px;
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+
+            .profile-stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .profile-info {
+                margin-bottom: 12px;
+            }
+
+            .profile-actions {
+                gap: 6px;
+            }
+
+            .btn-primary,
+            .btn-secondary,
+            .btn-icon {
+                padding: 6px 12px;
+                font-size: 13px;
+                border-radius: 6px;
+            }
+
+            .nav-tabs {
+                gap: 24px;
+                padding: 8px 0;
+                top: 50px;
+            }
+
+            .nav-tab {
+                font-size: 11px;
+                padding: 6px 0;
+            }
+
+            .nav-tab.active::after {
+                bottom: -8px;
+            }
+
+            .posts-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                padding: 1px;
+            }
+
+            .highlight-circle {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                border-width: 2px;
+            }
+
+            .highlight-name {
+                width: 60px;
+                font-size: 11px;
+            }
+
+            .empty-state {
+                padding: 40px 16px;
+            }
+
+            .empty-icon {
+                font-size: 48px;
+            }
+
+            .empty-title {
+                font-size: 16px;
+            }
+
+            .empty-text {
+                font-size: 13px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .profile-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-stats {
+                width: 100%;
+                gap: 16px;
+                margin-top: 16px;
+            }
+
+            .profile-info {
+                text-align: center;
+            }
+
+            .posts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-tabs {
+                gap: 16px;
+                padding: 6px 0;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-left: 12px;
+            }
+
+            .nav-tab {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .highlight-list {
+                gap: 10px;
+            }
+
+            .highlight-circle {
+                width: 55px;
+                height: 55px;
+                font-size: 26px;
+            }
+
+            .highlight-name {
+                width: 55px;
+                font-size: 10px;
+            }
+
+            .profile-header {
+                padding: 12px;
+            }
+
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+            }
+
+            .profile-name {
+                font-size: 15px;
+            }
+
+            .profile-bio {
+                font-size: 13px;
+            }
+        }
+
+        @media screen and (max-width: 380px) {
+            .posts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-number {
+                font-size: 14px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .profile-stats {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+        <div class="header-left">
+            <button class="header-back" title="Kembali">←</button>
+            <div class="header-username">Kembali</div>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" title="Bagikan">↗️</button>
+            <button class="header-btn" title="Menu" id="menuBtn">⋯</button>
+        </div>
+    </header>
+
+    <!-- ============ MAIN CONTAINER ============ -->
+    <div class="container">
+
+        <!-- ============ PROFILE HEADER ============ -->
+        <div class="profile-header">
+            <div class="profile-top">
+                <div class="profile-avatar">FA</div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-number">342</span>
+                        <span class="stat-label">Postingan</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15.4K</span>
+                        <span class="stat-label">Pengikut</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">892</span>
+                        <span class="stat-label">Mengikuti</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-name">Farrell </div>
+                <div class="profile-username">@farrelladlio</div>
+                <div class="profile-bio">
+                    📸 Photography Enthusiast | ✈️ Travel Lover | 🌍 Exploring the World<br>
+                    🎨 Passion for visual storytelling
+                </div>
+                <a href="#" class="profile-url">www.yourportfolio.com</a>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn-primary">Edit Profile</button>
+                <button class="btn-secondary">Bagikan Profile </button>
+                <button class="btn-icon">⋯</button>
+            </div>
+        </div>
+
+        <!-- ============ HIGHLIGHT REEL ============ -->
+        <div class="highlight-section">
+            <div class="highlight-title">Highlight</div>
+            <div class="highlight-list">
+                <div class="highlight-item">
+                    <div class="highlight-circle">📸</div>
+                    <div class="highlight-name">Fotografi</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle">✈️</div>
+                    <div class="highlight-name">Perjalanan</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle">🍜</div>
+                    <div class="highlight-name">Kuliner</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle">🏖️</div>
+                    <div class="highlight-name">Pantai</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle">🏙️</div>
+                    <div class="highlight-name">Kota</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ NAVIGATION TABS ============ -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="posts">📷 Postingan</button>
+            <button class="nav-tab" data-tab="reels">🎬 Reels</button>
+            <button class="nav-tab" data-tab="saved">🔖 Simpan</button>
+            <button class="nav-tab" data-tab="tagged">👤 Tag</button>
+        </div>
+
+        <!-- ============ POSTS GRID ============ -->
+        <div class="posts-section">
+            <div class="posts-grid">
+                <!-- POST 1 -->
+                <div class="post-item">
+                    <svg class="post-item-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="200" height="200" fill="#E1E5E1"/>
+                        <text x="100" y="105" font-size="16" fill="#999" text-anchor="middle" dy=".3em">Foto 1</text>
+                    </svg>
+                    <div class="post-item-overlay">
+                        <div class="post-item-stat">
+                            <span class="post-item-icon">❤️</span>
+                            <span>1,234</span>
+                        </div>
+                        <div class="post-item-stat">
+                            <span class="post-item-icon">💬</span>
+                            <span>45</span>
+                        </div>
+                    </div>
+                </div>
+
+                
