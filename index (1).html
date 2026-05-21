@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - Beranda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafafa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            color: #000;
+        }
+
+        /* Header/Navbar */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #000;
+        }
+
+        .search-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin: 0 2rem;
+        }
+
+        .search-box {
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            padding: 0.7rem 1.2rem;
+            width: 280px;
+            font-size: 0.9rem;
+            color: #000;
+            transition: background-color 0.2s;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .search-box:focus {
+            outline: none;
+            background-color: #f0f0f0;
+            box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.1);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-icons a, .nav-icons button {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #000;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-icons a:hover, .nav-icons button:hover {
+            color: #999;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .feed {
+            max-width: 630px;
+        }
+
+        /* Stories */
+        .stories {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+
+        .story {
+            flex: 0 0 60px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #feda75, #fa7e1e, #d92e7f, #9b36b7, #515bd4);
+            padding: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .story img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            object-fit: cover;
+        }
+
+        .story.add-story {
+            background-color: #fff;
+            border: 2px solid #dbdbdb;
+            padding: 0;
+        }
+
+        .story.add-story i {
+            font-size: 1.5rem;
+            color: #0095f6;
+        }
+
+        /* Post */
+        .post {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 0;
+            margin-bottom: 2rem;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .post-author img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .post-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-author-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .post-author-location {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .post-menu {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #000;
+            padding: 0;
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #000;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .action-btn:hover {
+            color: #999;
+        }
+
+        .action-btn.liked i {
+            color: #ed4956;
+            font-weight: bold;
+        }
+
+        .action-btn.saved {
+            margin-left: auto;
+        }
+
+        .post-likes {
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .post-caption {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .post-caption strong {
+            font-weight: 600;
+        }
+
+        .post-comments-link {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .post-comments-link:hover {
+            color: #000;
+        }
+
+        .post-time {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .post-comment-section {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-top: 1px solid #efefef;
+            gap: 0.75rem;
+        }
+
+        .post-comment-section button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+        }
+
+        .post-comment-section input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            color: #000;
+        }
+
+        .post-comment-section input::placeholder {
+            color: #999;
+        }
+
+        .post-comment-section .post-btn {
+            color: #0095f6;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Right Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .user-profile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .user-profile-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-profile-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-profile-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-profile-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-profile-username {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .user-profile-switch {
+            color: #0095f6;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .suggestions {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .suggestions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .suggestions-header a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .suggestions-header a:hover {
+            color: #999;
+        }
+
+        .suggest-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .suggest-item-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .suggest-item-info img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .suggest-item-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .suggest-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .suggest-item-text {
+            font-size: 0.8rem;
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .suggest-btn {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .suggest-btn:hover {
+            color: #0080d8;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: #999;
+            padding: 1rem 0;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #999;
+            padding-top: 1rem;
+            border-top: 1px solid #efefef;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .search-container {
+                order: 3;
+                width: 100%;
+                margin: 1rem 0 0 0;
+                margin-top: 1rem;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .nav-icons {
+                gap: 1rem;
+            }
+
+            .container {
+                margin: 1rem auto;
+                padding: 0 1rem;
+            }
+
+            .feed {
+                max-width: 100%;
+            }
+
+            .post {
+                border-left: none;
+                border-right: none;
+                margin-bottom: 1rem;
+            }
+
+            .stories {
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .search-container {
+                display: none;
+            }
+
+            .nav-icons {
+                gap: 1.5rem;
+            }
+
+            .post-author-location {
+                display: none;
+            }
+
+            .post-caption {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scrollbar */
+        .stories::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .stories::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .stories::-webkit-scrollbar-thumb {
+            background: #dbdbdb;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fab fa-instagram"></i>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="🔍 Cari">
+            </div>
+            <div class="nav-icons">
+                <a href="index (1).html"><i class="fas fa-home"></i></a>
+                <a href="#"><i class="far fa-heart"></i></a>
+                <a href="#"><i class="far fa-comment-dots"></i></a>
+                <a href="#"><i class="far fa-paper-plane"></i></a>
+                <a href="#"><i class="far fa-compass"></i></a>
+                <a href="profile.html"><i class="far fa-circle-user"></i></a>
+                <i class="fas fa-bell"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Feed -->
+        <div class="feed">
+            <!-- Stories -->
+            <div class="stories">
+                <div class="story add-story">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+                <div class="story">
+                    <img src="https://via.placeholder.com/60" alt="Story">
+                </div>
+            </div>
+
+            <!-- Post 1 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-author">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.pOV8bIwHZDGcwy7-jXgVFQHaEK?pid=Api&P=0&h=180" alt="User">
+                        <div class="post-author-info">
+                            <div class="post-author-name">parker.photo</div>
+                            <div class="post-author-location">New York,USA</div>
+                        </div>
+                    </div>
+                    <button class="post-menu"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://wallpapers.com/images/hd/spiderman-hollywood-movie-7m0ezmag7o8ygozi.jpg" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                        <button class="action-btn"><i class="far fa-comment"></i></button>
+                        <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <button class="action-btn saved"><i class="far fa-bookmark"></i></button>
+                </div>
+                <div class="post-likes">
+                    <strong id="likes-1">2,546</strong> suka
+                </div>
+                <div class="post-caption">
+                    <strong>parker.photo</strong> Your Friendly Neighbourhood </div>
+                <div class="post-comments-link">Lihat semua 156 komentar</div>
+                <div class="post-time">1 jam yang lalu</div>
+                <div class="post-comment-section">
+                    <button><i class="far fa-face-smile"></i></button>
+                    <input type="text" placeholder="Tambahkan komentar...">
+                    <button class="post-btn">Kirim</button>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-author">
+                        <img src="https://i.pinimg.com/originals/76/c3/5b/76c35b6cd68d8c32cce2be61643ecf0b.jpg" alt="User">
+                        <div class="post-author-info">
+                            <div class="post-author-name">Gwen_Stacy</div>
+                            <div class="post-author-location">New York,USA</div>
+                        </div>
+                    </div>
+                    <button class="post-menu"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2021/02/GWEN-STACY-APPEARANCES-Emma-Stone-in-The-Amazing-Spider-Man.jpg" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                        <button class="action-btn"><i class="far fa-comment"></i></button>
+                        <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <button class="action-btn saved"><i class="far fa-bookmark"></i></button>
+                </div>
+                <div class="post-likes">
+                    <strong id="likes-2">5,821</strong> suka
+                </div>
+                <div class="post-caption">
+                    <strong>Gwen_Stacy</strong> Interning at Oscorp was the best decision I ever made!
+                </div>
+                <div class="post-comments-link">Lihat semua 342 komentar</div>
+                <div class="post-time">3 jam yang lalu</div>
+                <div class="post-comment-section">
+                    <button><i class="far fa-face-smile"></i></button>
+                    <input type="text" placeholder="Tambahkan komentar...">
+                    <button class="post-btn">Kirim</button>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-author">
+                        <img src="https://i.pinimg.com/originals/ed/66/19/ed661947e98e1a83d1daa4e94e762203.jpg" alt="User">
+                        <div class="post-author-info">
+                            <div class="post-author-name">Harry_Osborn</div>
+                            <div class="post-author-location">New York,USA</div>
+                        </div>
+                    </div>
+                    <button class="post-menu"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2024/02/dane-dehaan-s-harry-osborn-in-the-amazing-spider-man-2.jpg" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                        <button class="action-btn"><i class="far fa-comment"></i></button>
+                        <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <button class="action-btn saved"><i class="far fa-bookmark"></i></button>
+                </div>
+                <div class="post-likes">
+                    <strong id="likes-3">3,124</strong> suka
+                </div>
+                <div class="post-caption">
+                    <strong>Harry_Osborn</strong> Keep Smiling</div>
+                <div class="post-comments-link">Lihat semua 298 komentar</div>
+                <div class="post-time">5 jam yang lalu</div>
+                <div class="post-comment-section">
+                    <button><i class="far fa-face-smile"></i></button>
+                    <input type="text" placeholder="Tambahkan komentar...">
+                    <button class="post-btn">Kirim</button>
+                </div>
+            </div>
+
+            <!-- Post 4 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-author">
+                        <img src="https://images1.wikia.nocookie.net/__cb20120217064950/amazingspiderman/images/b/bf/May_Parker.png" alt="User">
+                        <div class="post-author-info">
+                            <div class="post-author-name">Aunt_May</div>
+                            <div class="post-author-location">New York,USA</div>
+                        </div>
+                    </div>
+                    <button class="post-menu"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2017/01/martin-sheen-uncle-ben-aunt-may.jpg" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                        <button class="action-btn"><i class="far fa-comment"></i></button>
+                        <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <button class="action-btn saved"><i class="far fa-bookmark"></i></button>
+                </div>
+                <div class="post-likes">
+                    <strong id="likes-4">4,756</strong> suka
+                </div>
+                <div class="post-caption">
+                    <strong>Aunt_May</strong>In memory of Uncle Ben, who always believed in doing the right thing.</div>
+                <div class="post-comments-link">Lihat semua 567 komentar</div>
+                <div class="post-time">7 jam yang lalu</div>
+                <div class="post-comment-section">
+                    <button><i class="far fa-face-smile"></i></button>
+                    <input type="text" placeholder="Tambahkan komentar...">
+                    <button class="post-btn">Kirim</button>
+                </div>
+            </div>
+        </div>
+
+
+            <!-- Suggestions -->
+            <div class="suggestions">
+                <div class="suggestions-header">
+                    <span>Saran Untuk Anda</span>
+                    <a href="#">Lihat Semua</a>
+                </div>
+
+                <div class="suggest-item">
+                    <div class="suggest-item-info">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <div class="suggest-item-details">
+                            <div class="suggest-item-name">designer_pro</div>
+                            <div class="suggest-item-text">Diikuti oleh alex_photo</div>
+                        </div>
+                    </div>
+                    <button class="suggest-btn" onclick="toggleFollow(this)">Ikuti</button>
+                </div>
+
+                <div class="suggest-item">
+                    <div class="suggest-item-info">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <div class="suggest-item-details">
+                            <div class="suggest-item-name">music_beats</div>
+                            <div class="suggest-item-text">Populer</div>
+                        </div>
+                    </div>
+                    <button class="suggest-btn" onclick="toggleFollow(this)">Ikuti</button>
+                </div>
+
+                <div class="suggest-item">
+                    <div class="suggest-item-info">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <div class="suggest-item-details">
+                            <div class="suggest-item-name">tech_gadgets</div>
+                            <div class="suggest-item-text">Diikuti oleh travel_diary</div>
+                        </div>
+                    </div>
+                    <button class="suggest-btn" onclick="toggleFollow(this)">Ikuti</button>
+                </div>
+
+                <div class="suggest-item">
+                    <div class="suggest-item-info">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <div class="suggest-item-details">
+                            <div class="suggest-item-name">fashion_style</div>
+                            <div class="suggest-item-text">Populer di Indonesia</div>
+                        </div>
+                    </div>
+                    <button class="suggest-btn" onclick="toggleFollow(this)">Ikuti</button>
+                </div>
+
+                <div class="suggest-item">
+                    <div class="suggest-item-info">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <div class="suggest-item-details">
+                            <div class="suggest-item-name">nature_explore</div>
+                            <div class="suggest-item-text">Diikuti oleh 8 orang</div>
+                        </div>
+                    </div>
+                    <button class="suggest-btn" onclick="toggleFollow(this)">Ikuti</button>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#">Tentang</a>
+                    <a href="#">Bantuan</a>
+                    <a href="#">Pers</a>
+                    <a href="#">API</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Privasi</a>
+                    <a href="#">Syarat</a>
+                </div>
+
+                <div class="copyright">
+                    © 2024 Instagram Clone by Me
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Like
+        function toggleLike(button) {
+            const icon = button.querySelector('i');
+            const postCard = button.closest('.post');
+            const likesElement = postCard.querySelector('.post-likes strong');
+            let likes = parseInt(likesElement.textContent.replace(/,/g, ''));
+
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                button.classList.add('liked');
+                likes++;
+                likesElement.textContent = likes.toLocaleString('id-ID');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                button.classList.remove('liked');
+                likes--;
+                likesElement.textContent = likes.toLocaleString('id-ID');
+            }
+        }
+
+        // Toggle Follow
+        function toggleFollow(button) {
+            if (button.textContent === 'Ikuti') {
+                button.textContent = 'Mengikuti';
+            } else {
+                button.textContent = 'Ikuti';
+            }
+        }
+    </script>
+</body>
+</html>
