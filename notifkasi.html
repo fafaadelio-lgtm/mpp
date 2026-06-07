@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Notifikasi — MPP</title>
+  <link rel="stylesheet" href="styles/notifications.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <div class="header-container">
+      <div class="logo"><i class="fab fa-instagram"></i></div>
+      <div class="search-container">
+        <input type="text" class="search-box" placeholder="🔍 Cari">
+      </div>
+      <div class="nav-icons">
+        <a href="index (1).html"><i class="fas fa-home"></i></a>
+        <a href="notifkasi.html"><i class="far fa-heart"></i></a>
+        <a href="pesan.html"><i class="far fa-paper-plane"></i></a>
+        <a href="profile.html"><i class="far fa-circle-user"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="notifications-card">
+      <h1>Notifikasi</h1>
+
+      <ul class="notif-list">
+        <li class="notif unread">
+          <div class="left">
+            <div class="avatar">A</div>
+            <div class="text"><strong>andi</strong> menyukai foto Anda.</div>
+          </div>
+          <div class="right">
+            <img src="https://static.wikia.nocookie.net/horizonhigh/images/0/07/Spider-Man_%28Season_3%29.png/revision/latest/scale-to-width/360?cb=20200818145954" alt="Post" class="post-image">
+                <div class="post-overlay">
+          </div>
+        </li>
+
+        <li class="notif unread">
+          <div class="left">
+            <div class="avatar">S</div>
+            <div class="text"><strong>sinta</strong> mulai mengikuti Anda.</div>
+          </div>
+          <div class="right time">2 jam</div>
+        </li>
+
+        <li class="notif">
+          <div class="left">
+            <div class="avatar">R</div>
+            <div class="text"><strong>rizky</strong> mengomentari: "Keren!"</div>
+          </div>
+          <div class="right time">1 hari</div>
+        </li>
+
+        <li class="notif">
+          <div class="left">
+            <div class="avatar">D</div>
+            <div class="text"><strong>dimas</strong> menyukai komentar Anda.</div>
+          </div>
+          <div class="right time">3 hari</div>
+        </li>
+      </ul>
+
+    </section>
+  </main>
+
+  <script>
+    // Simple toggle read/unread when clicking a notification
+    document.querySelectorAll('.notif').forEach(n=>{
+      n.addEventListener('click',()=>n.classList.remove('unread'))
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Pesan — MPP</title>
+	  <link rel="stylesheet" href="styles/messages.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+		<!-- Header / Navbar (copied from index) -->
+		<header>
+			<div class="header-container">
+				<div class="logo">
+					<i class="fab fa-instagram"></i>
+				</div>
+				<div class="search-container">
+					<input type="text" class="search-box" placeholder="🔍 Cari">
+				</div>
+				<div class="nav-icons">
+					<a href="index (1).html"><i class="fas fa-home"></i></a>
+					<a href="notifkasi.html"><i class="far fa-heart"></i></a>
+					<a href="pesan.html"><i class="far fa-paper-plane"></i></a>
+					<a href="profile.html"><i class="far fa-circle-user"></i></a>
+				</div>
+			</div>
+		</header>
+	<div class="messages-app" id="app">
+		<aside class="conversations">
+			<header class="panel-header">
+				<h2>Pesan</h2>
+			</header>
+			<div class="search">
+				<input type="search" placeholder="Cari" aria-label="Cari" />
+			</div>
+			<ul class="list">
+				<li class="conv" onclick="openChat('Rizky',this)">
+					<div class="avatar">R</div>
+					<div class="meta">
+						<div class="name">Rizky</div>
+						<div class="preview">Hai — kita ketemu besok?</div>
+					</div>
+					<div class="time">09:41</div>
+				</li>
+				<li class="conv" onclick="openChat('Sinta',this)">
+					<div class="avatar">S</div>
+					<div class="meta">
+						<div class="name">Sinta</div>
+						<div class="preview">Sip, aku di kafe.</div>
+					</div>
+					<div class="time">08:12</div>
+				</li>
+				<li class="conv" onclick="openChat('Dimas',this)">
+					<div class="avatar">D</div>
+					<div class="meta">
+						<div class="name">Dimas</div>
+						<div class="preview">Linknya aku kirim nanti.</div>
+					</div>
+					<div class="time">Kemarin</div>
+				</li>
+			</ul>
+		</aside>
+
+		<main class="chat" id="chat">
+			<header class="chat-header">
+				<button class="back" onclick="closeChat()" aria-label="Kembali">←</button>
+				<div class="chat-title">Pilih percakapan</div>
+			</header>
+
+			<div class="messages">
+				<div class="message received">
+					<div class="bubble">Halo! Apa kabar?</div>
+					<div class="m-time">09:30</div>
+				</div>
+				<div class="message sent">
+					<div class="bubble">Baik, terima kasih. Kamu?</div>
+					<div class="m-time">09:31</div>
+				</div>
+				<div class="message received">
+					<div class="bubble">Siap untuk meeting jam 10.</div>
+					<div class="m-time">09:35</div>
+				</div>
+			</div>
+
+			<form class="composer" onsubmit="sendMessage(event)">
+				<input type="text" id="msgInput" placeholder="Tulis pesan..." autocomplete="off" />
+				<button type="submit" class="send">Kirim</button>
+			</form>
+		</main>
+	</div>
+
+	<script>
+		const app = document.getElementById('app');
+		const chat = document.getElementById('chat');
+		const title = chat.querySelector('.chat-title');
+		const messages = chat.querySelector('.messages');
+
+		function openChat(name, el){
+			title.textContent = name;
+			app.classList.add('show-chat');
+			// simple focus effect
+			document.getElementById('msgInput').focus();
+		}
+		function closeChat(){
+			app.classList.remove('show-chat');
+		}
+
+		function sendMessage(e){
+			e.preventDefault();
+			const input = document.getElementById('msgInput');
+			const text = input.value.trim();
+			if(!text) return;
+			const wrap = document.createElement('div');
+			wrap.className = 'message sent';
+			wrap.innerHTML = `<div class="bubble"></div><div class="m-time"></div>`;
+			wrap.querySelector('.bubble').textContent = text;
+			const now = new Date();
+			const hh = String(now.getHours()).padStart(2,'0');
+			const mm = String(now.getMinutes()).padStart(2,'0');
+			wrap.querySelector('.m-time').textContent = `${hh}:${mm}`;
+			messages.appendChild(wrap);
+			messages.scrollTop = messages.scrollHeight;
+			input.value = '';
+		}
+	</script>
+</body>
+</html>
