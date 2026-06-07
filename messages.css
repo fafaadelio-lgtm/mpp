@@ -1,0 +1,109 @@
+:root{
+  --bg:#f3f4f6;
+  --panel:#ffffff;
+  --muted:#6b7280;
+  --accent:#0ea5a4;
+}
+/* Header / Navbar styles copied from index (adapted) */
+header{
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.header-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.logo{
+  font-weight: 700;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #000;
+}
+.search-container{flex:1;display:flex;justify-content:center;margin:0 2rem}
+.search-box{background-color:#f0f0f0;border:none;border-radius:20px;padding:.7rem 1.2rem;width:280px;font-size:.9rem;color:#000}
+.search-box::placeholder{color:#999}
+.search-box:focus{outline:none;box-shadow:0 0 0 2px rgba(0,149,246,0.1)}
+.nav-icons{display:flex;gap:2rem;align-items:center}
+.nav-icons a, .nav-icons button{background:none;border:none;font-size:1.3rem;color:#000;cursor:pointer;text-decoration:none}
+.nav-icons a:hover, .nav-icons button:hover{color:#999}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background:var(--bg);
+  color:#111827;
+}
+.messages-app{
+  display:flex;
+  gap:20px;
+  max-width:1100px;
+  margin:18px auto;
+  height:calc(100vh - 36px);
+}
+.conversations{
+  width:340px;
+  background:var(--panel);
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 2px 8px rgba(15,23,42,0.06);
+}
+.panel-header{padding:16px 18px;border-bottom:1px solid #eef2f7}
+.panel-header h2{margin:0;font-size:18px}
+.search{padding:12px 16px;border-bottom:1px solid #f3f4f6}
+.search input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee}
+.list{list-style:none;margin:0;padding:0;overflow:auto}
+.conv{display:flex;align-items:center;padding:12px 16px;gap:12px;cursor:pointer;border-bottom:1px solid #f8fafc}
+.conv:hover{background:#fbfcfd}
+.avatar{width:48px;height:48px;border-radius:50%;background:#e6eef0;color:#034047;display:flex;align-items:center;justify-content:center;font-weight:600}
+.meta{flex:1;min-width:0}
+.meta .name{font-weight:600}
+.meta .preview{color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{color:var(--muted);font-size:12px}
+
+.chat{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel);
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(15,23,42,0.06);
+  overflow:hidden;
+}
+.chat-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #eef2f7}
+.chat-title{font-weight:700}
+.back{display:none;background:transparent;border:0;font-size:18px;padding:6px 8px}
+.messages{flex:1;padding:18px;overflow:auto;background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent)}
+.message{display:flex;flex-direction:column;max-width:70%;margin-bottom:12px}
+.message .bubble{padding:10px 14px;border-radius:18px;display:inline-block}
+.message.received{align-self:flex-start}
+.message.received .bubble{background:#f1f5f9;color:#0f172a}
+.message.sent{align-self:flex-end;text-align:right}
+.message.sent .bubble{background:var(--accent);color:#fff}
+.m-time{font-size:11px;color:var(--muted);margin-top:6px}
+
+.composer{display:flex;gap:8px;padding:12px;border-top:1px solid #eef2f7}
+.composer input{flex:1;padding:10px;border-radius:999px;border:1px solid #e6e9ee}
+.composer .send{background:var(--accent);color:#fff;border:0;padding:10px 14px;border-radius:999px}
+
+/* Mobile responsiveness */
+@media (max-width: 768px){
+  .messages-app{display:block;max-width:100%;height:100vh;margin:0}
+  .conversations{width:100%;height:100vh;border-radius:0}
+  .chat{position:fixed;top:0;left:0;right:0;bottom:0;transform:translateX(100%);transition:transform .25s ease-in-out;border-radius:0}
+  .messages-app.show-chat .chat{transform:translateX(0)}
+  .back{display:inline-block}
+  .conversations .panel-header{position:sticky;top:0;background:var(--panel);z-index:2}
+}
